@@ -1,0 +1,44 @@
+const faqList = document.querySelectorAll(".faq__item");
+const hideFaq = (i) => {
+  faqList.forEach((el, index) => {
+    if (el.getAttribute("opened") && i === index) {
+      el.querySelector(".recomend__text").classList.remove("display-none");
+      el.querySelector(".plus-minus").innerText = "-";
+    } else {
+      el.querySelector(".recomend__text").classList.add("display-none");
+      el.querySelector(".plus-minus").innerText = "+";
+    }
+  });
+};
+faqList.forEach((el, index) => {
+  el.addEventListener("click", () => {
+    if (el.getAttribute("opened")) {
+      el.removeAttribute("opened");
+    } else {
+      el.setAttribute("opened", "opened");
+    }
+    hideFaq(index);
+  });
+});
+hideFaq();
+
+const options = document.querySelectorAll(".options");
+const answer = document.querySelectorAll(".answer");
+const next = document.querySelectorAll(".next");
+const question = document.querySelectorAll(".question");
+
+options.forEach((option, index) => {
+  option.querySelectorAll('.option').forEach((opt) => {
+    opt.onclick = () => {
+      answer[index].style.display = "block";
+      if(next[index]){
+        next[index].onclick = function () {
+          answer[index].style.display = "none";
+          question[index].classList.remove("question_active");
+          question[index + 1].classList.add("question_active");
+        };
+      }
+      
+    };
+  });
+});
